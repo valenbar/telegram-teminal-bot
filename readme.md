@@ -7,9 +7,7 @@
 ### how to config?
 ___
 
-- clone or fork this repo
-- give me a star 😎
-- edit the [config.py](https://github.com/moshe-coh/Terminal-Bot/blob/main/config.py) file.
+- edit the [.env](https://github.com/valenbar/telegram-teminal-bot/blob/main/.env)
 
 
 - run ```pip3 install -r requirements.txt```
