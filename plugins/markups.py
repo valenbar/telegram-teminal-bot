@@ -23,7 +23,9 @@ start_and_help = InlineKeyboardMarkup([[InlineKeyboardButton(text='Creator 🦾'
                                                                 url='https://github.com/moshe-coh/Terminal-Bot')
                                        ]])
 
-refresh_space = InlineKeyboardMarkup([[InlineKeyboardButton(text='Refresh 💫', callback_data='space')]])
+refresh_space = InlineKeyboardMarkup([[InlineKeyboardButton(text='Refresh 💫', callback_data='space')],
+                                      [InlineKeyboardButton(text='Logs Channel 📝', url='https://t.me/+XpyGdPmDooM1OTZk')]
+                                    ])
 
 base_folder_markup = InlineKeyboardMarkup([
     [

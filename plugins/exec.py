@@ -5,7 +5,7 @@ from getpass import getuser
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from config import allowed
+from config import allowed, log_channel
 from functions.terminal import Terminal
 
 
@@ -47,4 +47,9 @@ async def exec_cmd(_: Client, msg: Message):
         return
     send = k.edit if k else msg.reply
     await send(out_data)
+    if log_channel:
+        try:
+            await _.send_message(log_channel, f"User: {msg.from_user.mention} Execute Command: {m}")
+        except Exception as e:
+            pass
 
