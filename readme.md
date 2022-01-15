@@ -23,5 +23,3 @@ stats - 📊 server stats
 my_files - 📁 files manager
 cd - 🗃 change working dir
 ```
-
-![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=moshe-coh&repo=Terminal-Bot)
