@@ -60,8 +60,8 @@ def folder_markup():
             [InlineKeyboardButton(f"📁 {folder.name}", callback_data=f"folder={str(directories.index(folder))}")]
         )
 
-        
-    
+
+
     keyboard.append([
         InlineKeyboardButton('⬅️Up Page', callback_data='ShowFolders0'),
         InlineKeyboardButton("➡️Down Page", callback_data="ShowFolders1")
@@ -165,7 +165,7 @@ async def callback(_, cb: CallbackQuery):
                 TurnPage(0,direction)
         except:
             pass
-        
+
         try:
             await cb.message.edit_text(
                 f"**The Current Path:**\n `{path.absolute_path}`\n**Total Files and Folders are:** {_files_num}"
@@ -180,7 +180,7 @@ async def callback(_, cb: CallbackQuery):
         none, file_name = data.split("=")
         await cb.message.edit_text(f"**File:** `{file_name}`\n**Path:** `{path.absolute_path}`",
                                    reply_markup=file_markup(file_name))
-    
+
     elif data.startswith("folder"):
         FolderCmd = {'up':'..','up2':'../..','up3':''}
         none, FolderIndex = data.split("=")
@@ -198,7 +198,7 @@ async def callback(_, cb: CallbackQuery):
         await cb.message.edit_text(f"**The Current Path**\n `{path2.absolute_path}`\n"
                                    f"**Total Files and Folders are:** {files_num2}",
                                    reply_markup=folder_markup())
-    
+
     elif data.startswith('delete'):
         none, name = data.split("=")
         try:
@@ -239,13 +239,13 @@ async def callback(_, cb: CallbackQuery):
             await cb.message.reply_text(f'{path},\n**[{name}]({dlink})**')
         except Exception as e:
             await cb.message.edit_text(f"Can't generate file link for your file...\n\n{str(e)}")
-    
+
     elif data.startswith("play"):
         none, f_id = cb.data.split("=")
         name = files[int(f_id)].full_name
         f_path = f'{path.absolute}/{name}'
         hash = fb_api(f_path)
-        
+
         #Some TV like Honor's Harmony OS need a filename in it, so give a file name 'test.mp4'.
         dlink = f'https://{filebrowser_server}/fb/api/public/dl/{hash}?filename=test.mp4'
         dlink = dlink.replace(' ','\ ')
@@ -264,3 +264,9 @@ async def callback(_, cb: CallbackQuery):
             await cb.message.edit_text(get_server_details(), reply_markup=refresh_space)
         except MessageNotModified:
             pass
+
+    elif data.startswith('kill_pid'):
+        pid = data.split(":")[1]
+        command = f"kill {pid}"
+        print("killing process: ", pid)
+        await Terminal.execute(command)

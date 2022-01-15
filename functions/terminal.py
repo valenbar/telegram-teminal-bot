@@ -2,7 +2,7 @@ import asyncio
 
 
 class Terminal:
-    def __init__(self, process: asyncio.subprocess.Process) -> None:
+    def __init__(self, process: asyncio.subprocess.Process) -> (None):
         self._process = process
         self._stdout = b''
         self._stderr = b''
@@ -10,23 +10,26 @@ class Terminal:
         self._stderr_line = b''
         self._finished = False
 
-    def cancel(self) -> None:
+    def get_pid(self) -> (int):
+        return self._process.pid
+
+    def cancel(self) -> (None):
         self._process.kill()
 
     @property
-    def finished(self) -> bool:
+    def finished(self) -> (bool):
         return self._finished
 
     @property
-    def read_line(self) -> str:
+    def read_line(self) -> (str):
         return (self._stdout_line + self._stderr_line).decode('utf-8').rstrip()
         #return (self._stdout + self._stderr).decode('utf-8').strip()
 
     @property
-    def get_output(self) -> str:
+    def get_output(self) -> (str):
         return (self._stdout + self._stderr).decode('utf-8').rstrip()
 
-    async def _read_stdout(self) -> None:
+    async def _read_stdout(self) -> (None):
         while True:
             #line = await self._process.stdout.readline()
             line = await self._process.stdout.read(n=1024)
@@ -36,7 +39,7 @@ class Terminal:
             else:
                 break
 
-    async def _read_stderr(self) -> None:
+    async def _read_stderr(self) -> (None):
         while True:
             #line = await self._process.stderr.readline()
             line = await self._process.stderr.read(n=1024)
@@ -46,14 +49,14 @@ class Terminal:
             else:
                 break
 
-    async def worker(self) -> None:
+    async def worker(self) -> (None):
         await asyncio.wait([self._read_stdout(), self._read_stderr()])
         await self._process.wait()
         self._finished = True
 
     @classmethod
     async def execute(cls, cmd: str):
-        process = await asyncio.create_subprocess_shell(
+        process = await asyncio.create_subprocess_shell("exec " +
             cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
         t_obj = cls(process)
         asyncio.get_event_loop().create_task(t_obj.worker())
