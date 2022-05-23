@@ -51,5 +51,5 @@ async def my_files(_, m: Message):
     
 @Client.on_message(filters.command('wol') & filters.user(allowed))
 async def wol(_, m: Message):
-    m.text = "bash wol.sh"
+    m.text = "bash ~/wol.sh"
     await exec_cmd(_, m)
