@@ -15,6 +15,7 @@ ___
 ```
 start - 📜 welcome message 
 help - 😉 like start message
+wol - 🔌 exec wake on lan
 ip - 🔒 my server ip
 st - ♨️ speed test to my server 
 stats - 📊 server stats

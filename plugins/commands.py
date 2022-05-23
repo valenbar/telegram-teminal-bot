@@ -1,5 +1,6 @@
 from functions.functions import ip, get_server_speedtest, get_server_details
 from config import allowed, help_text
+from plugins.exec import exec_cmd
 from plugins.markups import start_and_help, refresh_space, base_markup
 from pyrogram import Client, filters
 from pyrogram.types import Message, ForceReply
@@ -47,3 +48,8 @@ async def cd(client, m: Message):
 @Client.on_message(filters.command('my_files') & filters.user(allowed))
 async def my_files(_, m: Message):
     await m.reply_text('what you want to show?', reply_markup=base_markup)
+    
+@Client.on_message(filters.command('wol') & filters.user(allowed))
+async def wol(_, m: Message):
+    m.text = "bash wol.sh"
+    await exec_cmd(_, m)

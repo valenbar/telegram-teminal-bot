@@ -12,7 +12,7 @@ from functions.terminal import Terminal
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
-@Client.on_message(filters.user(allowed) & ~filters.command(['start', 'help', 'st', 'stats', 'ip', 'my_files', 'update', 'speedtest', 'cd', 'speedtest']) & filters.text)
+@Client.on_message(filters.user(allowed) & ~filters.command(['start', 'help', 'st', 'stats', 'ip', 'my_files', 'update', 'speedtest', 'cd', 'speedtest', 'wol']) & filters.text)
 async def exec_cmd(_: Client, msg: Message):
     m = msg.text
     cmd = await Terminal.execute(m)
