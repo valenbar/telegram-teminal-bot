@@ -15,7 +15,10 @@ async def main():
     await bot.start()
     me = await bot.get_me()
     print(f"\n{me.first_name} with Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
+    await bot.send_message(config.allowed[0], f"bot back online")
     await idle()
+    await bot.send_message(config.allowed[0], f"bot going offline")
+
 
 
 if __name__ == "__main__":
